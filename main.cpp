@@ -48,7 +48,7 @@ void main()
 		switch (opcion)
 		{
 		case 1:
-			cout << "1- Crear usuario" << endl;
+			cout << "1- Credar usuario" << endl;dd
 			cout << "2- Modificar contraseña" << endl;
 			cout << "3- Eliminar usuario" << endl;
 			cout << "4- Volver" << endl;
