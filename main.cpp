@@ -122,7 +122,7 @@ void main()
 							cin >> contra;
 							contras[i] = contra;
 						}
-						else if (i == usuarios.size())
+						while (i == usuarios.size())
 						{
 							cout << "El usuario que has puesto no existe!!!" << endl;
 							cout << "Vuelve a escibir el usuario: ";
@@ -154,7 +154,7 @@ void main()
 								break;
 							}
 						}
-						else if (i == usuarios.size())
+						while (i == usuarios.size())
 						{
 							cout << "El usuario que has puesto no existe!!!" << endl;
 							cout << "Vuelve a escibir el usuario: ";
@@ -174,9 +174,16 @@ void main()
 			cin >> usuario;
 			for (int i = 0; i < usuarios.size(); i++)
 			{
+				while (i == usuarios.size())
+				{
+					cout << "Este usuario no existe!!!" << endl;
+					cout << "Escribe el usuario al que quieres acceder: ";
+					cin >> usuario;
+					i = 0;
+				}
 				if (usuario == usuarios[i])
 				{
-					cout << "Escribe la contrasena del usuario: ";
+					cout << "Escribe la contrasena: ";
 					cin >> contra;
 					while (contra != contras[i])
 					{
@@ -184,14 +191,6 @@ void main()
 						cin >> contra;
 					}
 				}
-				else if (i == usuarios.size())
-				{
-					cout << "El usuario que has puesto no existe!!!" << endl;
-					cout << "Vuelve a escibir el usuario: ";
-					cin >> usuario;
-					i = 0;
-				}
-			}
 			break;
 
 
