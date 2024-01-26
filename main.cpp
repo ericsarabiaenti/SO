@@ -36,7 +36,8 @@ void main()
 	short opcion;
 	short opcionUser;
 	string usuarioNuevo;
-	while(salir == false)
+	bool usuarioValido = false;
+	while (salir == false)
 	{
 		bool salirMenu1 = false;
 		cout << "Estas logueado como " << usuario << endl; cout << endl;
@@ -55,12 +56,11 @@ void main()
 			cout << "1- Cambiar usuario" << endl;
 			cout << "2- Gestionar directorios" << endl;
 			cout << "3- Gestionar tareas" << endl;
-			cout << "4- Salir" << endl; 
+			cout << "4- Salir" << endl;
 			cout << endl; cout << "Que quieres hacer: ";
 			cin >> opcionUser; cout << endl; cout << endl;
 			opcion = opcionUser + 1;
 		}
-		
 		switch (opcion)
 		{
 		case 1:
@@ -80,7 +80,6 @@ void main()
 				cout << "4- Volver" << endl;
 				cout << endl; cout << "Que quieres hacer: ";
 				cin >> opcion; cout << endl; cout << endl;
-
 				switch (opcion)
 				{
 				case 1:
@@ -93,7 +92,6 @@ void main()
 							cout << "Este usuario ya existe!!!" << endl;
 							cout << "Nombre del usuario nuevo: ";
 							cin >> usuarioNuevo;
-							i = 0;
 						}
 					}
 					cout << "Escribe una contraseña para " << usuarioNuevo << ": ";
@@ -112,54 +110,58 @@ void main()
 					contras.push_back(contra);
 					break;
 				case 2:
-					cout << "A que usuario le quieres cambiar la contraseña: ";
-					cin >> usuarioNuevo;
-					for (int i = 0; i < usuarios.size(); i++)
+					usuarioValido = false;
+					while (usuarioValido == false)
 					{
-						if (usuarioNuevo == usuarios[i])
+						cout << "A que usuario le quieres cambiar la contraseña: ";
+						cin >> usuarioNuevo;
+						for (int i = 0; i < usuarios.size(); i++) 
 						{
-							cout << "Escribe una nueva contraseña para " << usuarioNuevo << ": ";
-							cin >> contra;
-							contras[i] = contra;
+							if (usuarioNuevo == usuarios[i])
+							{
+								usuarioValido = true;
+								cout << "Escribe una nueva contraseña para " << usuarioNuevo << ": ";
+								cin >> contra;
+								contras[i] = contra;
+							}
 						}
-						while (i == usuarios.size())
+						if (usuarioValido == false)
 						{
 							cout << "El usuario que has puesto no existe!!!" << endl;
-							cout << "Vuelve a escibir el usuario: ";
-							cin >> usuarioNuevo;
-							i = 0;
 						}
 					}
 					break;
 				case 3:
-					cout << "Escribe el usuario que quieres eliminar: ";
-					cin >> usuarioNuevo;
-					for (int i = 0; i < usuarios.size(); i++)
+					usuarioValido = false;
+					while (usuarioValido == false)
 					{
-						if (usuarioNuevo == usuarios[i])
+						cout << "Escribe el usuario que quieres eliminar: ";
+						cin >> usuarioNuevo;
+						for (int i = 0; i < usuarios.size(); i++)
 						{
-							cout << "Estas seguro que quieres eliminar el usuario " << usuarioNuevo << " (S/N): ";
-							cin >> usuarioNuevo;
-							while (usuarioNuevo != "S" || usuarioNuevo != "N")
+							if (usuarioNuevo == usuarios[i])
 							{
-								cout << "Porfavor pon S o N: ";
+								usuarioValido = true;
+								cout << "Estas seguro que quieres eliminar el usuario " << usuarioNuevo << " (S/N): ";
 								cin >> usuarioNuevo;
+								if (usuarioNuevo == "S")
+								{
+									usuarios.erase(usuarios.begin() + i);
+								}
+								else if (usuarioNuevo == "N")
+								{
+									break;
+								}
+								while (usuarioNuevo != "S" && usuarioNuevo != "N")
+								{
+									cout << "Porfavor pon S o N: ";
+									cin >> usuarioNuevo;
+								}
 							}
-							if (usuarioNuevo == "S")
+							else if (usuarioValido == false)
 							{
-								usuarios.erase(usuarios.begin() + i);
+								cout << "Este usuario no existe!!!" << endl;
 							}
-							else if (usuarioNuevo == "N")
-							{
-								break;
-							}
-						}
-						while (i == usuarios.size())
-						{
-							cout << "El usuario que has puesto no existe!!!" << endl;
-							cout << "Vuelve a escibir el usuario: ";
-							cin >> usuarioNuevo;
-							i = 0;
 						}
 					}
 					break;
@@ -170,34 +172,39 @@ void main()
 			}
 			break;
 		case 2:
-			cout << "Escribe el usuario al que quieres acceder: ";
-			cin >> usuario;
-			for (int i = 0; i < usuarios.size(); i++)
+			usuarioValido = false;
+			while (usuarioValido == false)
 			{
-				while (i == usuarios.size())
+				cout << "Escribe el usuario al que quieres acceder: ";
+				cin >> usuario;
+				for (int i = 0; i < usuarios.size(); i++)
 				{
-					cout << "Este usuario no existe!!!" << endl;
-					cout << "Escribe el usuario al que quieres acceder: ";
-					cin >> usuario;
-					i = 0;
-				}
-				if (usuario == usuarios[i])
-				{
-					cout << "Escribe la contrasena: ";
-					cin >> contra;
-					while (contra != contras[i])
+					if (usuario == usuarios[i])
 					{
-						cout << "La contrasena es incorrecta: ";
+						usuarioValido = true;
+						cout << "Escribe la contraseña para " << usuario << ": ";
 						cin >> contra;
+						while (contra != contras[i])
+						{
+							cout << "La contrasena es incorrecta, intentalo de nuevo: ";
+							cin >> contra;
+						}
 					}
 				}
+				if (usuarioValido == false)
+				{
+					cout << "El usuario que has puesto no existe!!!" << endl;
+				}
+			}
 			break;
+		case 3:
 
+			
 
-
-		case 5: 
+		case 5:
 			salir = true;
 			break;
+			
 		}
 	}
 }
