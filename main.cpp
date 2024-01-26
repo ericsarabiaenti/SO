@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -37,6 +38,10 @@ void main()
 	short opcionUser;
 	string usuarioNuevo;
 	bool usuarioValido = false;
+	string pathIni;
+	vector<string> pathSec;
+	pathIni = "C:/";
+
 	while (salir == false)
 	{
 		bool salirMenu1 = false;
@@ -66,14 +71,8 @@ void main()
 		case 1:
 			while (salirMenu1 == false)
 			{
-				if (usuario == "admin")
-				{
-					cout << "Estas logueado como admin" << endl; cout << endl;
-				}
-				else
-				{
-					cout << "Estas logueado como " << usuario << endl; cout << endl;
-				}
+
+				cout << "Estas logueado como " << usuario << endl; cout << endl;
 				cout << "1- Crear usuario" << endl;
 				cout << "2- Modificar contraseña" << endl;
 				cout << "3- Eliminar usuario" << endl;
@@ -197,10 +196,32 @@ void main()
 				}
 			}
 			break;
-		case 3:
+		case 4:
+			cout << "Estas logueado como " << usuario << endl; cout << endl;
+			short usuarioTarea;
+			for (int i = 0; i < usuarios.size(); i++)
+			{
+				if (usuario == usuarios[i])
+				{
+					usuarioTarea = i;
+				}
+			}
+			string tarea;
+			queue <string> tareas;
+			cout << "1- Crear tarea" << endl;
+			cout << "2- Mostrar siguiente tarea" << endl;
+			cout << "3- Completar tarea" << endl;
+			cout << "4- Volver" << endl;
+			cout << endl; cout << "Que quieres hacer: ";
+			cin >> opcion; cout << endl; cout << endl;
+			switch (opcion)
+			{
+			case 1:
+				cout << "Escribe la tarea que quieres crear: ";
+				cin >> tarea;
 
-			
-
+				break;
+			}
 		case 5:
 			salir = true;
 			break;
