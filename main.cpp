@@ -38,9 +38,7 @@ void main()
 	short opcionUser;
 	string usuarioNuevo;
 	bool usuarioValido = false;
-	string pathIni;
-	vector<string> pathSec;
-	pathIni = "C:/";
+	string tarea;
 
 	while (salir == false)
 	{
@@ -196,31 +194,40 @@ void main()
 				}
 			}
 			break;
+		case 3: 
+			break;
 		case 4:
-			cout << "Estas logueado como " << usuario << endl; cout << endl;
-			short usuarioTarea;
-			for (int i = 0; i < usuarios.size(); i++)
+			usuarioValido = false;
+			while (usuarioValido == false)
 			{
-				if (usuario == usuarios[i])
+				vector<string>usuariosTarea;
+				queue<string>tareas;
+				cout << "Estas logueado como " << usuario << endl; cout << endl;
+				cout << "1- Crear tarea" << endl;
+				cout << "2- Mostrar siguiente tarea" << endl;
+				cout << "3- Completar tarea" << endl;
+				cout << "4- Volver" << endl;
+				cout << endl; cout << "Que quieres hacer: ";
+				cin >> opcion; cout << endl; cout << endl;
+				switch (opcion)
 				{
-					usuarioTarea = i;
+				case 1:
+					cout << "Escribe la tarea que quieres crear: ";
+					cin >> tarea;
+					usuariosTarea[0] = tareas.push(tarea)];
+					break;
+				case 2:
+					cout << "La tarea que tiene que hacer es: ";
+					cout << usuario.front();
+					break;
+				case 3:
+					cout << "Acabas de completar la siguiente tarea: " << usuario.front();
+					usuario.pop();
+					break;
+				case 4:
+					usuarioValido = true;
+					break;
 				}
-			}
-			string tarea;
-			queue <string> tareas;
-			cout << "1- Crear tarea" << endl;
-			cout << "2- Mostrar siguiente tarea" << endl;
-			cout << "3- Completar tarea" << endl;
-			cout << "4- Volver" << endl;
-			cout << endl; cout << "Que quieres hacer: ";
-			cin >> opcion; cout << endl; cout << endl;
-			switch (opcion)
-			{
-			case 1:
-				cout << "Escribe la tarea que quieres crear: ";
-				cin >> tarea;
-
-				break;
 			}
 		case 5:
 			salir = true;
