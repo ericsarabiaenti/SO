@@ -38,7 +38,6 @@ void main()
 	short opcionUser;
 	string usuarioNuevo;
 	bool usuarioValido = false;
-	string tarea;
 
 	while (salir == false)
 	{
@@ -200,8 +199,18 @@ void main()
 			usuarioValido = false;
 			while (usuarioValido == false)
 			{
-				vector<string>usuariosTarea;
+				short users;
+				vector<short>user;
 				queue<string>tareas;
+				vector<queue<string>> usuariosTareas;
+				string tarea;
+				for (int i = 0; i < usuarios.size(); i++)
+				{
+					if (usuario == usuarios[i])
+					{
+						users = i;
+					}
+				}
 				cout << "Estas logueado como " << usuario << endl; cout << endl;
 				cout << "1- Crear tarea" << endl;
 				cout << "2- Mostrar siguiente tarea" << endl;
@@ -212,17 +221,17 @@ void main()
 				switch (opcion)
 				{
 				case 1:
-					cout << "Escribe la tarea que quieres crear: ";
+					cout << "Que tarea quieres escribir: ";
 					cin >> tarea;
-					usuariosTarea[0] = tareas.push(tarea)];
+					tareas.push(tarea);
+					usuariosTareas[users] = tareas;
 					break;
 				case 2:
-					cout << "La tarea que tiene que hacer es: ";
-					cout << usuario.front();
+					cout << "La tarea que tienes que hacer es: " << usuariosTareas[users].front();
 					break;
 				case 3:
-					cout << "Acabas de completar la siguiente tarea: " << usuario.front();
-					usuario.pop();
+					cout << "Acabas de completrar esta tarea: " << usuariosTareas[users].front();
+					usuariosTareas[users].pop();
 					break;
 				case 4:
 					usuarioValido = true;
