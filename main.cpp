@@ -196,21 +196,12 @@ void main()
 		case 3: 
 			break;
 		case 4:
-			usuarioValido = false;
-			while (usuarioValido == false)
+			salirMenu1 = false;
+			while (salirMenu1 == false)
 			{
-				short users;
-				vector<short>user;
-				queue<string>tareas;
-				vector<queue<string>> usuariosTareas;
+				vector<queue<string>> usuariosTareas(usuarios.size());
+				queue<string> tareas;
 				string tarea;
-				for (int i = 0; i < usuarios.size(); i++)
-				{
-					if (usuario == usuarios[i])
-					{
-						users = i;
-					}
-				}
 				cout << "Estas logueado como " << usuario << endl; cout << endl;
 				cout << "1- Crear tarea" << endl;
 				cout << "2- Mostrar siguiente tarea" << endl;
@@ -218,24 +209,44 @@ void main()
 				cout << "4- Volver" << endl;
 				cout << endl; cout << "Que quieres hacer: ";
 				cin >> opcion; cout << endl; cout << endl;
-				switch (opcion)
+				for (int i = 0; i < usuarios.size(); i++)
 				{
-				case 1:
-					cout << "Que tarea quieres escribir: ";
-					cin >> tarea;
-					tareas.push(tarea);
-					usuariosTareas[users] = tareas;
-					break;
-				case 2:
-					cout << "La tarea que tienes que hacer es: " << usuariosTareas[users].front();
-					break;
-				case 3:
-					cout << "Acabas de completrar esta tarea: " << usuariosTareas[users].front();
-					usuariosTareas[users].pop();
-					break;
-				case 4:
-					usuarioValido = true;
-					break;
+					if (usuario == usuarios[i])
+					{
+						switch (opcion)
+						{
+							case 1:
+								cout << "Que tarea quieres escribir: ";
+								cin >> tarea;
+								tareas.push(tarea);
+								usuariosTareas.push_back(tareas);
+								break;
+							case 2:
+								if (!usuariosTareas[i].empty())
+								{
+									cout << "La tarea que tienes que hacer es: " << usuariosTareas[i].front();
+								}
+								else 
+								{
+									cout << "No hay tareas" << endl;
+								}
+								break;
+							case 3:
+								if (!usuariosTareas[i].empty())
+								{
+									cout << "Acabas de completrar esta tarea: " << usuariosTareas[i].front();
+									usuariosTareas[i].pop();
+								}
+								else 
+								{
+									cout << "No hay tareas" << endl;
+								}
+								break;
+							case 4:
+								salirMenu1 = true;
+								break;
+						}
+					}
 				}
 			}
 		case 5:
