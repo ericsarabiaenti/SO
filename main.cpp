@@ -1,5 +1,4 @@
 #include <iostream>
-#include <list>
 #include <vector>
 #include <queue>
 
@@ -33,15 +32,21 @@ void main()
 			cin >> contra; cout << endl;
 		}
 	}
+	bool salirMenu1 = false;
 	bool salir = false;
-	short opcion;
-	short opcionUser;
+
 	string usuarioNuevo;
 	bool usuarioValido = false;
+	vector<queue<string>> usuariosTareas;
+	queue<string> tareas;
+	usuariosTareas.push_back(tareas);
 
+
+	char opcion;
+	char opcionUser;
 	while (salir == false)
 	{
-		bool salirMenu1 = false;
+		bool opcionin = false;
 		cout << "Estas logueado como " << usuario << endl; cout << endl;
 		if (usuario == usuarios[0])
 		{
@@ -50,22 +55,54 @@ void main()
 			cout << "3- Gestionar directorios" << endl;
 			cout << "4- Gestionar tareas" << endl;
 			cout << "5- Salir" << endl;
-			cout << endl; cout << "Que quieres hacer: ";
-			cin >> opcion; cout << endl; cout << endl;
+			while (!opcionin)
+			{
+				cout << endl; cout << "Que quieres hacer: ";
+				cin >> opcion;
+
+				cout << endl; cout << endl;
+
+				if ((int)opcion > 48 && (int)opcion < 54)
+				{
+					opcionin = true;
+				}
+				else 
+				{
+					cout << "Escribe un numero entre en 1 y el 5: ";
+				}
+			}
 		}
-		else if (usuario != usuarios[0])
+		else
 		{
 			cout << "1- Cambiar usuario" << endl;
 			cout << "2- Gestionar directorios" << endl;
 			cout << "3- Gestionar tareas" << endl;
 			cout << "4- Salir" << endl;
-			cout << endl; cout << "Que quieres hacer: ";
-			cin >> opcionUser; cout << endl; cout << endl;
-			opcion = opcionUser + 1;
+			cout << endl;
+			while (!opcionin)
+			{
+				cout << endl; 
+				cout << "Que quieres hacer: ";
+				cin >> opcionUser;
+
+				cout << endl; cout << endl;
+
+				if ((int)opcionUser > 48 && (int)opcionUser < 53)
+				{
+					opcionin = true;
+					opcion = opcionUser;
+					opcion += 1;
+				}
+				else
+				{
+					cout << "Escribe un numero entre en 1 y el 4: ";
+				}
+			}
 		}
+		
 		switch (opcion)
 		{
-		case 1:
+		case '1':
 			while (salirMenu1 == false)
 			{
 
@@ -78,7 +115,7 @@ void main()
 				cin >> opcion; cout << endl; cout << endl;
 				switch (opcion)
 				{
-				case 1:
+				case '1':
 					cout << "Nombre del usuario nuevo: ";
 					cin >> usuarioNuevo;
 					for (int i = 0; i < usuarios.size(); i++)
@@ -104,14 +141,15 @@ void main()
 					}
 					usuarios.push_back(usuarioNuevo);
 					contras.push_back(contra);
+					usuariosTareas.push_back(tareas);
 					break;
-				case 2:
+				case '2':
 					usuarioValido = false;
 					while (usuarioValido == false)
 					{
 						cout << "A que usuario le quieres cambiar la contraseña: ";
 						cin >> usuarioNuevo;
-						for (int i = 0; i < usuarios.size(); i++) 
+						for (int i = 0; i < usuarios.size(); i++)
 						{
 							if (usuarioNuevo == usuarios[i])
 							{
@@ -127,7 +165,7 @@ void main()
 						}
 					}
 					break;
-				case 3:
+				case '3':
 					usuarioValido = false;
 					while (usuarioValido == false)
 					{
@@ -161,13 +199,13 @@ void main()
 						}
 					}
 					break;
-				case 4:
+				case '4':
 					salirMenu1 = true;
 					break;
 				}
 			}
 			break;
-		case 2:
+		case '2':
 			usuarioValido = false;
 			while (usuarioValido == false)
 			{
@@ -193,15 +231,32 @@ void main()
 				}
 			}
 			break;
-		case 3: 
-			break;
-		case 4:
+		case '3':
 			salirMenu1 = false;
 			while (salirMenu1 == false)
 			{
-				vector<queue<string>> usuariosTareas(usuarios.size());
-				queue<string> tareas;
+				cout << "1- Ver directorios" << endl;
+				cout << "2- Crear directorios" << endl;
+				cout << "3- Renombrar directorios" << endl;
+				cout << "4- Eliminar tareas" << endl;
+				cout << "5- Volver" << endl;
+
+
+			}
+			break;
+		case '4':
+			while (salirMenu1 == false)
+			{
+				salirMenu1 = false;
 				string tarea;
+				char user;
+				for (int i = 0; i < usuarios.size(); i++)
+				{
+					if (usuario == usuarios[i])
+					{
+						user = i;
+					}
+				}
 				cout << "Estas logueado como " << usuario << endl; cout << endl;
 				cout << "1- Crear tarea" << endl;
 				cout << "2- Mostrar siguiente tarea" << endl;
@@ -209,50 +264,44 @@ void main()
 				cout << "4- Volver" << endl;
 				cout << endl; cout << "Que quieres hacer: ";
 				cin >> opcion; cout << endl; cout << endl;
-				for (int i = 0; i < usuarios.size(); i++)
+
+				switch (opcion)
 				{
-					if (usuario == usuarios[i])
+				case '1':
+					cout << "Que tarea quieres escribir: ";
+					cin >> tarea;
+					usuariosTareas[user].push(tarea);
+					break;
+				case '2':
+					if (!usuariosTareas[user].empty())
 					{
-						switch (opcion)
-						{
-							case 1:
-								cout << "Que tarea quieres escribir: ";
-								cin >> tarea;
-								tareas.push(tarea);
-								usuariosTareas.push_back(tareas);
-								break;
-							case 2:
-								if (!usuariosTareas[i].empty())
-								{
-									cout << "La tarea que tienes que hacer es: " << usuariosTareas[i].front();
-								}
-								else 
-								{
-									cout << "No hay tareas" << endl;
-								}
-								break;
-							case 3:
-								if (!usuariosTareas[i].empty())
-								{
-									cout << "Acabas de completrar esta tarea: " << usuariosTareas[i].front();
-									usuariosTareas[i].pop();
-								}
-								else 
-								{
-									cout << "No hay tareas" << endl;
-								}
-								break;
-							case 4:
-								salirMenu1 = true;
-								break;
-						}
+						cout << "La tarea que tienes que hacer es: " << usuariosTareas[user].front() << endl;
 					}
+					else
+					{
+						cout << "No hay tareas" << endl;
+					}
+					break;
+				case '3':
+					if (!usuariosTareas[user].empty())
+					{
+						cout << "Acabas de completrar esta tarea: " << usuariosTareas[user].front() << endl;
+						usuariosTareas[user].pop();
+					}
+					else
+					{
+						cout << "No hay tareas" << endl;
+					}
+					break;
+				case '4':
+					salirMenu1 = true;
+					break;
 				}
 			}
-		case 5:
+		case '5':
 			salir = true;
 			break;
-			
+
 		}
 	}
 }
