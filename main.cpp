@@ -46,6 +46,11 @@ void main()
 	char opcionUser;
 	bool volver = false;
 
+	vector <string> dir;
+	dir.push_back("C:/");
+	string dirNombre;
+	bool dirValido = false;
+
 	while (salir == false)
 	{
 		bool opcionin = false;
@@ -68,7 +73,7 @@ void main()
 				{
 					opcionin = true;
 				}
-				else 
+				else
 				{
 					cout << "Escribe un numero entre en 1 y el 5: ";
 				}
@@ -83,7 +88,7 @@ void main()
 			cout << endl;
 			while (!opcionin)
 			{
-				cout << endl; 
+				cout << endl;
 				cout << "Que quieres hacer: ";
 				cin >> opcionUser;
 
@@ -101,7 +106,7 @@ void main()
 				}
 			}
 		}
-		
+
 		switch (opcion)
 		{
 		case '1':
@@ -112,8 +117,11 @@ void main()
 				cout << "2- Modificar contraseña" << endl;
 				cout << "3- Eliminar usuario" << endl;
 				cout << "4- Volver" << endl;
-				cout << endl; cout << "Que quieres hacer: ";
-				cin >> opcion; cout << endl; cout << endl;
+				cout << endl;
+				cout << "Que quieres hacer: ";
+				cin >> opcion; 
+				cout << endl; 
+				cout << endl;
 				switch (opcion)
 				{
 				case '1':
@@ -233,19 +241,65 @@ void main()
 			}
 			break;
 		case '3':
-			volver = false;
 			while (volver == false)
 			{
 				cout << "1- Ver directorios" << endl;
 				cout << "2- Crear directorios" << endl;
 				cout << "3- Renombrar directorios" << endl;
-				cout << "4- Eliminar tareas" << endl;
+				cout << "4- Eliminar directorio" << endl;
 				cout << "5- Volver" << endl;
+				cout << endl; 
+				cout << "Que quieres hacer: ";
+				cin >> opcion;
+				cout << endl;
+				cout << endl;
+				switch (opcion)
+				{
+				case '1':
+					cout << "Estos son tus directorios: " << endl;
+					cout << endl;
+					for (int i = 0; i < dir.size(); i++)
+					{
+						cout << dir[i];
+						cout << "/";
+					}
+					cout << endl;
+					cout << endl;
+					break;
+				case '2':
+					cout << "Que directorio quieres crear: ";
+					cin >> dirNombre;
+					dir.push_back(dirNombre);
+					break;
+				case '3':
+					while (dirValido == false)
+					{
+						cout << "Pon el nombre del directorio que quiera renombrar: ";
+						cin >> dirNombre;
+						for (int i = 0; i < dir.size(); i++)
+						{
+							if (dirNombre == dir[i])
+							{
+								dirValido = true;
+								cout << "Escribe el nombre que le quieres dar: ";
+								cin >> dirNombre;
+								dir[i] = dirNombre;
+							}
+						}
+						cout << "Este directorio no existe!!";
+					}
+					break;
+				case '4':
+
+					break;
+				case '5':
+					volver = true;
+					break;
+				}
 
 			}
 			break;
 		case '4':
-			volver = false;
 			while (volver == false)
 			{
 				string tarea;
