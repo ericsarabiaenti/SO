@@ -44,6 +44,8 @@ void main()
 
 	char opcion;
 	char opcionUser;
+	bool volver = false;
+
 	while (salir == false)
 	{
 		bool opcionin = false;
@@ -103,9 +105,8 @@ void main()
 		switch (opcion)
 		{
 		case '1':
-			while (salirMenu1 == false)
+			while (volver == false)
 			{
-
 				cout << "Estas logueado como " << usuario << endl; cout << endl;
 				cout << "1- Crear usuario" << endl;
 				cout << "2- Modificar contraseña" << endl;
@@ -200,7 +201,7 @@ void main()
 					}
 					break;
 				case '4':
-					salirMenu1 = true;
+					volver = true;
 					break;
 				}
 			}
@@ -232,8 +233,8 @@ void main()
 			}
 			break;
 		case '3':
-			salirMenu1 = false;
-			while (salirMenu1 == false)
+			volver = false;
+			while (volver == false)
 			{
 				cout << "1- Ver directorios" << endl;
 				cout << "2- Crear directorios" << endl;
@@ -241,13 +242,12 @@ void main()
 				cout << "4- Eliminar tareas" << endl;
 				cout << "5- Volver" << endl;
 
-
 			}
 			break;
 		case '4':
-			while (salirMenu1 == false)
+			volver = false;
+			while (volver == false)
 			{
-				salirMenu1 = false;
 				string tarea;
 				char user;
 				for (int i = 0; i < usuarios.size(); i++)
@@ -263,7 +263,9 @@ void main()
 				cout << "3- Completar tarea" << endl;
 				cout << "4- Volver" << endl;
 				cout << endl; cout << "Que quieres hacer: ";
-				cin >> opcion; cout << endl; cout << endl;
+				cin >> opcion;
+				cout << endl;
+				cout << endl;
 
 				switch (opcion)
 				{
@@ -294,14 +296,14 @@ void main()
 					}
 					break;
 				case '4':
-					salirMenu1 = true;
+					volver = true;
 					break;
 				}
 			}
+			break;
 		case '5':
 			salir = true;
 			break;
-
 		}
 	}
 }
