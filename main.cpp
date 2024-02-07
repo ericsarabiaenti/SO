@@ -267,30 +267,90 @@ void main()
 					cout << endl;
 					break;
 				case '2':
-					cout << "Que directorio quieres crear: ";
-					cin >> dirNombre;
+					for (int i = 0; i < dirNombre.size(); i++)
+					{
+						cout << "Que directorio quieres crear: ";
+						cin >> dirNombre;
+						if (dirNombre[i] == '/')
+						{
+							cout << "No puedes crear más de un directorio" << endl;
+							cout << endl;
+							i = 0;
+						}
+					}
 					dir.push_back(dirNombre);
 					break;
 				case '3':
-					while (dirValido == false)
+					cout << "Estos son tus directorios: " << endl;
+					cout << endl;
+					for (int i = 0; i < dir.size(); i++)
 					{
-						cout << "Pon el nombre del directorio que quiera renombrar: ";
+						cout << dir[i];
+						cout << "/";
+					}
+					cout << endl;
+					cout << "Pon el nombre del directorio que quiera renombrar: ";
+					cin >> dirNombre;
+					for (int i = 0; i < dir.size(); i++)
+					{
+						if (dirNombre == dir[i])
+						{
+							i = dir.size();
+							cout << "Escribe el nombre que le quieres dar: ";
+							cin >> dirNombre;
+							dir[i] = dirNombre;
+						}
+					}
+					cout << "Este directorio no existe!!";
+					break;
+				case '4':
+					char confirmacion;
+					bool validarDir = false;
+					while (validarDir == false)
+					{
+						cout << "Estos son tus directorios: " << endl;
+						cout << endl;
+						for (int i = 0; i < dir.size(); i++)
+						{
+							cout << dir[i];
+							cout << "/";
+						}
+						cout << endl;
+						cout << "Que directorio quieres eliminar: ";
 						cin >> dirNombre;
 						for (int i = 0; i < dir.size(); i++)
 						{
-							if (dirNombre == dir[i])
+							if (dirNombre == dir.front())
 							{
-								dirValido = true;
-								cout << "Escribe el nombre que le quieres dar: ";
-								cin >> dirNombre;
-								dir[i] = dirNombre;
+								dir.erase(dir.begin() + i);
+								i = dir.size();
+								validarDir = true;
+							}
+							else if (dirNombre != dir.front())
+							{
+								cout << "El directorio que quieres borrar tiene más directorios dentro." << endl;
+								cout << endl;
+								cout << "Estas seguro que quieres ELIMINAR todo el contenido? (S/N)" << endl;
+								cout << "Estas seguro?: ";
+								cin >> confirmacion;
+								while (confirmacion != '83' || confirmacion != '78')
+								{
+									cout << "Porfavor escribe S o N: ";
+									cin >> confirmacion;
+								}
+								while (dirNombre != dir.front())
+								{
+									dir.erase(dir.begin() + dir.size());
+								}
+								validarDir = true;
+							}
+							else if (dirNombre != dir[i])
+							{
+								cout << "Este directorio no existe!!";
+								validarDir = false;
 							}
 						}
-						cout << "Este directorio no existe!!";
 					}
-					break;
-				case '4':
-
 					break;
 				case '5':
 					volver = true;
