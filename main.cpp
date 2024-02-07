@@ -21,17 +21,16 @@ void main()
 	cout << "Contraseña: ";
 	cin >> contra;
 
-	for (int i = 0; i < usuarios.size(); i++)
+
+	while (usuarios[0] != usuario || contras[0] != contra)
 	{
-		while (usuarios[i] != usuario || contras[i] != contra)
-		{
-			cout << "Usuario i/o contraseña incorrecto/a" << endl;
-			cout << "Usuario: ";
-			cin >> usuario; cout << endl;
-			cout << "Contraseña: ";
-			cin >> contra; cout << endl;
-		}
+		cout << "Usuario i/o contraseña incorrecto/a" << endl;
+		cout << "Usuario: ";
+		cin >> usuario; cout << endl;
+		cout << "Contraseña: ";
+		cin >> contra; cout << endl;
 	}
+
 	bool salirMenu1 = false;
 	bool salir = false;
 
@@ -49,6 +48,7 @@ void main()
 	vector <string> dir;
 	dir.push_back("C:/");
 	string dirNombre;
+	string dirNuevo;
 	bool dirValido = false;
 
 	while (salir == false)
@@ -258,27 +258,35 @@ void main()
 				case '1':
 					cout << "Estos son tus directorios: " << endl;
 					cout << endl;
+
 					for (int i = 0; i < dir.size(); i++)
 					{
 						cout << dir[i];
-						cout << "/";
+						cout << endl;
 					}
 					cout << endl;
 					cout << endl;
 					break;
 				case '2':
-					for (int i = 0; i < dirNombre.size(); i++)
+					for (int i = 0; i < dir.size(); i++)
 					{
-						cout << "Que directorio quieres crear: ";
+						cout << "Donde quieres crear el directorio (pon la ruta completa sin el directorio nuevo): ";
 						cin >> dirNombre;
-						if (dirNombre[i] == '/')
+						while (dir[i] != dirNombre)
 						{
-							cout << "No puedes crear más de un directorio" << endl;
-							cout << endl;
-							i = 0;
+							cout << "Este directorio no existe" << endl;
+							cout << "Donde quieres crear el directorio (pon la ruta completa sin el directorio nuevo): ";
+							cin >> dirNombre;
+						}
+						if (dir[i] == dirNombre)
+						{
+							cout << "Escribe tu nuevo directorio (sin la ruta): ";
+							cin >> dirNuevo;
+							string dirVector = (dir[i] + "/" + dirNuevo);
+							dir.push_back(dirVector);
+							i = dir.size();
 						}
 					}
-					dir.push_back(dirNombre);
 					break;
 				case '3':
 					cout << "Estos son tus directorios: " << endl;
@@ -304,53 +312,7 @@ void main()
 					cout << "Este directorio no existe!!";
 					break;
 				case '4':
-					char confirmacion;
-					bool validarDir = false;
-					while (validarDir == false)
-					{
-						cout << "Estos son tus directorios: " << endl;
-						cout << endl;
-						for (int i = 0; i < dir.size(); i++)
-						{
-							cout << dir[i];
-							cout << "/";
-						}
-						cout << endl;
-						cout << "Que directorio quieres eliminar: ";
-						cin >> dirNombre;
-						for (int i = 0; i < dir.size(); i++)
-						{
-							if (dirNombre == dir.front())
-							{
-								dir.erase(dir.begin() + i);
-								i = dir.size();
-								validarDir = true;
-							}
-							else if (dirNombre != dir.front())
-							{
-								cout << "El directorio que quieres borrar tiene más directorios dentro." << endl;
-								cout << endl;
-								cout << "Estas seguro que quieres ELIMINAR todo el contenido? (S/N)" << endl;
-								cout << "Estas seguro?: ";
-								cin >> confirmacion;
-								while (confirmacion != '83' || confirmacion != '78')
-								{
-									cout << "Porfavor escribe S o N: ";
-									cin >> confirmacion;
-								}
-								while (dirNombre != dir.front())
-								{
-									dir.erase(dir.begin() + dir.size());
-								}
-								validarDir = true;
-							}
-							else if (dirNombre != dir[i])
-							{
-								cout << "Este directorio no existe!!";
-								validarDir = false;
-							}
-						}
-					}
+
 					break;
 				case '5':
 					volver = true;
